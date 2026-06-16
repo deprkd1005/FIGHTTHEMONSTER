@@ -1,0 +1,1171 @@
+/* ==============================================================
+   FIGHT THE MONSTER — BRUNEI LEGENDS EDITION
+   Premium CSS — Light Mode Edition
+   ============================================================== */
+
+/* ----------------------------------------------------------
+   CSS VARIABLES
+   ---------------------------------------------------------- */
+:root {
+    --gold: #d4a017;
+    --gold-dark: #b8860b;
+    --gold-light: #f5e6b8;
+    --black: #f8fafc;
+    --black-light: #e2e8f0;
+    --black-mid: #cbd5e1;
+    --white: #0f172a;
+    --red: #dc2626;
+    --red-dark: #991b1b;
+    --green: #15803d;
+    --green-light: #22c55e;
+    --blue: #1e40af;
+    --blue-light: #3b82f6;
+    --mana-blue: #2563eb;
+    --font-main: 'Inter', sans-serif;
+}
+
+/* ----------------------------------------------------------
+   GLOBAL RESET & BASE
+   ---------------------------------------------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background: #f0f4f8;
+    color: var(--white);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+#game-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+canvas {
+    display: block;
+}
+
+/* Hide scrollbars */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* ----------------------------------------------------------
+   SCREEN SYSTEM
+   ---------------------------------------------------------- */
+.screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(248, 250, 252, 0.97);
+}
+
+.screen.active {
+    display: flex;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ----------------------------------------------------------
+   LOADING SCREEN
+   ---------------------------------------------------------- */
+#loading-screen {
+    gap: 24px;
+}
+
+.loading-crest {
+    font-size: 4rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.loading-dots {
+    animation: loadingDots 1.5s steps(3, end) infinite;
+}
+
+@keyframes loadingDots {
+    0% { content: ''; opacity: 0.3; }
+    33% { opacity: 0.6; }
+    66% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+.loading-bar {
+    width: 300px;
+    height: 4px;
+    background: rgba(15, 23, 42, 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loading-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    animation: loadingFill 2s ease-in-out forwards;
+}
+
+@keyframes loadingFill {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+/* ----------------------------------------------------------
+   TITLE SCREEN
+   ---------------------------------------------------------- */
+.title-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.game-title {
+    font-size: 4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+    letter-spacing: 0.15em;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.game-subtitle {
+    font-size: 1.5rem;
+    color: var(--gold-dark);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.game-tagline {
+    font-size: 1rem;
+    color: var(--white);
+    opacity: 0.6;
+    font-style: italic;
+    margin-bottom: 16px;
+}
+
+.title-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.title-footer {
+    margin-top: 48px;
+    font-size: 0.8rem;
+    color: var(--gold-dark);
+    opacity: 0.5;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------
+   BUTTONS
+   ---------------------------------------------------------- */
+.btn {
+    padding: 16px 48px;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: 2px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    background: var(--gold);
+    color: var(--black);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.btn-primary {
+    background: var(--gold);
+    color: var(--black);
+}
+
+.btn-primary:hover {
+    background: var(--gold-light);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+}
+
+.btn-secondary {
+    border-color: rgba(218, 165, 32, 0.5);
+    color: var(--gold-dark);
+}
+
+.btn-secondary:hover {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--black);
+}
+
+.btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn:disabled:hover {
+    background: transparent;
+    color: var(--gold);
+    transform: none;
+    box-shadow: none;
+}
+
+/* ----------------------------------------------------------
+   HOW TO PLAY
+   ---------------------------------------------------------- */
+.howto-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.howto-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.controls-guide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 500px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(212, 160, 23, 0.25);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.control-keys {
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: var(--gold);
+    background: rgba(255, 215, 0, 0.1);
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    min-width: 70px;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+.control-desc {
+    font-size: 0.9rem;
+    color: var(--white);
+    opacity: 0.85;
+}
+
+/* ----------------------------------------------------------
+   HERO SELECTION SCREEN
+   ---------------------------------------------------------- */
+.hero-select-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+#hero-cards-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.hero-card {
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid rgba(212, 160, 23, 0.25);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.hero-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(255, 215, 0, 0.15);
+}
+
+.hero-card.selected {
+    border-color: var(--gold);
+    background: rgba(212, 160, 23, 0.12);
+    box-shadow: 0 0 30px rgba(212, 160, 23, 0.2);
+}
+
+/* Hero Card Icons */
+.hero-card-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    transition: transform 0.3s ease;
+}
+
+.hero-card:hover .hero-card-icon {
+    transform: scale(1.1);
+}
+
+.hero-icon-0 {
+    background: linear-gradient(135deg, #FFD700, #FF8C00);
+}
+
+.hero-icon-1 {
+    background: linear-gradient(135deg, #FFD700, #FFF8DC);
+}
+
+.hero-icon-2 {
+    background: linear-gradient(135deg, #457b9d, #2d6a4f);
+}
+
+.hero-icon-3 {
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+}
+
+.hero-card-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+}
+
+.hero-card-title {
+    font-size: 0.75rem;
+    color: var(--white);
+    opacity: 0.6;
+    font-style: italic;
+    margin-bottom: 16px;
+}
+
+/* Hero Card Stats */
+.hero-card-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+}
+
+.stat-label {
+    width: 30px;
+    text-align: right;
+    color: var(--gold-dark);
+    font-weight: 600;
+}
+
+.stat-bar-bg {
+    flex: 1;
+    height: 6px;
+    background: rgba(15, 23, 42, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.stat-hp {
+    background: linear-gradient(90deg, var(--red), var(--red-dark));
+}
+
+.stat-spd {
+    background: linear-gradient(90deg, var(--blue-light), var(--mana-blue));
+}
+
+.stat-atk {
+    background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+}
+
+.stat-value {
+    width: 28px;
+    font-size: 0.7rem;
+    color: var(--white);
+    opacity: 0.7;
+    text-align: left;
+}
+
+/* Hero Detail Panel */
+#hero-detail {
+    margin-top: 20px;
+    text-align: center;
+    min-height: 60px;
+}
+
+#hero-detail-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+}
+
+#hero-detail-title {
+    font-size: 0.9rem;
+    color: var(--gold-dark);
+    font-style: italic;
+    margin-top: 4px;
+}
+
+#hero-detail-desc {
+    font-size: 0.85rem;
+    color: var(--white);
+    opacity: 0.7;
+    margin-top: 8px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#select-hero-btn {
+    margin-top: 20px;
+}
+
+/* ----------------------------------------------------------
+   LEVEL INTRO SCREEN
+   ---------------------------------------------------------- */
+#level-intro-screen {
+    background: rgba(248, 250, 252, 0.95);
+}
+
+.level-intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#level-intro-number {
+    font-size: 1.2rem;
+    color: var(--gold-dark);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    animation: slideDown 0.5s ease forwards;
+    font-weight: 600;
+}
+
+#level-intro-name {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin: 16px 0;
+    text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+    animation: slideUp 0.5s ease 0.2s both;
+}
+
+#level-intro-desc {
+    font-size: 1rem;
+    color: var(--white);
+    opacity: 0.7;
+    max-width: 500px;
+    text-align: center;
+    line-height: 1.6;
+    animation: slideUp 0.5s ease 0.4s both;
+}
+
+/* ----------------------------------------------------------
+   HUD (Heads-Up Display)
+   ---------------------------------------------------------- */
+#hud {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    display: none;
+}
+
+#hud.active {
+    display: block;
+}
+
+/* HUD Top Left — Hero Info */
+.hud-top-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#hud-hero-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+#health-bar-container,
+#mana-bar-container {
+    width: 250px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    border: 1px solid rgba(212, 160, 23, 0.3);
+    overflow: hidden;
+    margin-bottom: 6px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red-dark), var(--red));
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    width: 100%;
+}
+
+#mana-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2b2d8e, var(--mana-blue));
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    width: 100%;
+}
+
+#health-text,
+#mana-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 0 2px rgba(255, 255, 255, 0.8);
+    color: var(--white);
+}
+
+/* HUD Top Right — Score & Combo */
+.hud-top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+}
+
+#score-display {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+#combo-display {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#combo-display.active {
+    opacity: 1;
+    animation: comboPopIn 0.3s ease;
+}
+
+#wave-display {
+    font-size: 0.85rem;
+    color: var(--white);
+    opacity: 0.7;
+    margin-top: 4px;
+}
+
+/* HUD Top Center — Level Banner */
+#level-banner {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* ----------------------------------------------------------
+   POWER SLOTS (Bottom Center)
+   ---------------------------------------------------------- */
+.power-slots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+}
+
+.power-slot {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(212, 160, 23, 0.4);
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.power-slot.ready {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.power-slot.on-cooldown {
+    opacity: 0.5;
+}
+
+.power-key {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.75rem;
+    font-weight: 900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.power-icon {
+    font-size: 1.5rem;
+}
+
+.power-name {
+    font-size: 0.6rem;
+    color: var(--gold-dark);
+    margin-top: 2px;
+    text-align: center;
+}
+
+.power-cooldown-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(148, 163, 184, 0.6);
+    border-radius: 10px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--red);
+}
+
+.power-slot.on-cooldown .power-cooldown-overlay {
+    display: flex;
+}
+
+/* ----------------------------------------------------------
+   BOSS HEALTH BAR
+   ---------------------------------------------------------- */
+#boss-health-container {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    display: none;
+    text-align: center;
+}
+
+#boss-health-container.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+#boss-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+    text-shadow: 0 0 10px rgba(230, 57, 70, 0.5);
+}
+
+.boss-health-bar {
+    height: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 7px;
+    border: 1px solid var(--red-dark);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#boss-health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8b0000, var(--red), #ff4444);
+    border-radius: 7px;
+    transition: width 0.3s ease;
+    width: 100%;
+}
+
+/* ----------------------------------------------------------
+   FLOATING DAMAGE NUMBERS
+   ---------------------------------------------------------- */
+#damage-numbers-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.damage-number {
+    position: absolute;
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--gold);
+    pointer-events: none;
+    animation: damageFloat 1s ease forwards;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+}
+
+.damage-number.crit {
+    font-size: 2rem;
+    color: var(--red);
+}
+
+.damage-number.heal {
+    color: var(--green-light);
+}
+
+@keyframes damageFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-40px) scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(0.8);
+    }
+}
+
+/* ----------------------------------------------------------
+   RESULT SCREENS (Level Complete / Game Over / Victory)
+   ---------------------------------------------------------- */
+.result-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 48px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(212, 160, 23, 0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.result-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+.level-complete-title {
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.game-over-title {
+    color: var(--red);
+    text-shadow: 0 0 20px rgba(230, 57, 70, 0.3);
+}
+
+.victory-title {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold-dark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+}
+
+.victory-card {
+    border-color: var(--gold);
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.15);
+}
+
+.victory-subtitle {
+    font-size: 1.3rem;
+    color: var(--gold-dark);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+.result-score {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.result-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+}
+
+/* Cultural Fact Box */
+.cultural-fact {
+    background: rgba(212, 160, 23, 0.08);
+    border-left: 3px solid var(--gold);
+    padding: 16px;
+    font-style: italic;
+    max-width: 400px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--white);
+    opacity: 0.9;
+    border-radius: 0 8px 8px 0;
+}
+
+@keyframes glow {
+    0% {
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.7));
+    }
+    100% {
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+    }
+}
+
+/* ----------------------------------------------------------
+   KEYFRAME ANIMATIONS
+   ---------------------------------------------------------- */
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes comboPopIn {
+    0% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE — MOBILE / TABLET
+   ---------------------------------------------------------- */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2.2rem;
+        letter-spacing: 0.08em;
+    }
+
+    .game-subtitle {
+        font-size: 1rem;
+        letter-spacing: 0.15em;
+    }
+
+    #hero-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 12px;
+        max-width: 400px;
+    }
+
+    .hero-card {
+        padding: 16px;
+    }
+
+    .hero-card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .hero-card-name {
+        font-size: 0.95rem;
+    }
+
+    .hero-select-title {
+        font-size: 1.5rem;
+    }
+
+    /* HUD Adjustments */
+    #health-bar-container,
+    #mana-bar-container {
+        width: 180px;
+        height: 16px;
+    }
+
+    #hud-hero-name {
+        font-size: 0.85rem;
+    }
+
+    #score-display {
+        font-size: 1.4rem;
+    }
+
+    #combo-display {
+        font-size: 1rem;
+    }
+
+    .power-slot {
+        width: 56px;
+        height: 56px;
+    }
+
+    .power-icon {
+        font-size: 1.2rem;
+    }
+
+    .power-key {
+        width: 20px;
+        height: 20px;
+        font-size: 0.65rem;
+    }
+
+    #boss-health-container {
+        width: 280px;
+    }
+
+    .result-card {
+        padding: 32px 24px;
+    }
+
+    .result-title {
+        font-size: 2rem;
+    }
+
+    .victory-title {
+        font-size: 2.5rem;
+    }
+
+    #level-intro-name {
+        font-size: 2rem;
+    }
+
+    .controls-guide {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 14px 36px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.8rem;
+    }
+
+    #hero-cards-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .hero-card {
+        padding: 12px;
+    }
+
+    .hero-card-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.4rem;
+    }
+
+    .hero-card-name {
+        font-size: 0.8rem;
+    }
+
+    .hero-card-title {
+        font-size: 0.65rem;
+        margin-bottom: 8px;
+    }
+
+    .stat-row {
+        font-size: 0.65rem;
+    }
+
+    .stat-label {
+        width: 24px;
+    }
+
+    #health-bar-container,
+    #mana-bar-container {
+        width: 140px;
+        height: 14px;
+    }
+
+    .hud-top-left {
+        top: 10px;
+        left: 10px;
+    }
+
+    .hud-top-right {
+        top: 10px;
+        right: 10px;
+    }
+
+    .power-slots {
+        bottom: 16px;
+        gap: 10px;
+    }
+
+    .power-slot {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+    }
+}

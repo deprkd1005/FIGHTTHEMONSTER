@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fight the Monster — Brunei Legends Edition. Defend Brunei Darussalam in this epic 3D browser action game featuring legendary heroes from Bruneian folklore.">
+    <title>Fight the Monster — Brunei Legends</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Game Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ============================================================
+         SCREEN 1: LOADING SCREEN
+         ============================================================ -->
+    <div id="loading-screen" class="screen active">
+        <div class="loading-crest">🇧🇳</div>
+        <div class="loading-text">Loading<span class="loading-dots">...</span></div>
+        <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCREEN 2: TITLE SCREEN
+         ============================================================ -->
+    <div id="title-screen" class="screen">
+        <div class="title-content">
+            <h1 class="game-title">FIGHT THE MONSTER</h1>
+            <div class="game-subtitle">Brunei Legends Edition</div>
+            <div class="game-tagline">Defend Brunei Darussalam</div>
+            <div class="title-buttons">
+                <button id="start-btn" class="btn btn-primary">START GAME</button>
+                <button id="howto-btn" class="btn btn-secondary">HOW TO PLAY</button>
+            </div>
+            <div class="title-footer">Celebrating Brunei's Heritage</div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCREEN 3: HOW TO PLAY SCREEN
+         ============================================================ -->
+    <div id="howto-screen" class="screen">
+        <div class="howto-content">
+            <h2 class="howto-title">HOW TO PLAY</h2>
+            <div class="controls-guide">
+                <div class="control-item">
+                    <div class="control-keys">W A S D</div>
+                    <div class="control-desc">Move your hero</div>
+                </div>
+                <div class="control-item">
+                    <div class="control-keys">CLICK</div>
+                    <div class="control-desc">Attack enemies</div>
+                </div>
+                <div class="control-item">
+                    <div class="control-keys">1 / 2</div>
+                    <div class="control-desc">Use special powers</div>
+                </div>
+                <div class="control-item">
+                    <div class="control-keys">SPACE</div>
+                    <div class="control-desc">Dodge roll</div>
+                </div>
+            </div>
+            <button id="howto-back-btn" class="btn btn-secondary">BACK</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCREEN 4: HERO SELECTION SCREEN
+         ============================================================ -->
+    <div id="hero-select-screen" class="screen">
+        <h2 class="hero-select-title">CHOOSE YOUR HERO</h2>
+
+        <div id="hero-cards-container">
+            <!-- Hero 0: Awang Semaun -->
+            <div class="hero-card" data-hero="0">
+                <div class="hero-card-icon hero-icon-0">⚔️</div>
+                <div class="hero-card-name">Awang Semaun</div>
+                <div class="hero-card-title">The Legendary Warrior</div>
+                <div class="hero-card-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">HP</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-hp" style="width: 100%;"></div>
+                        </div>
+                        <span class="stat-value">150</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">SPD</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-spd" style="width: 70%;"></div>
+                        </div>
+                        <span class="stat-value">70</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">ATK</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-atk" style="width: 85%;"></div>
+                        </div>
+                        <span class="stat-value">85</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 1: Awang Alak Betatar -->
+            <div class="hero-card" data-hero="1">
+                <div class="hero-card-icon hero-icon-1">👑</div>
+                <div class="hero-card-name">Awang Alak Betatar</div>
+                <div class="hero-card-title">The First Sultan</div>
+                <div class="hero-card-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">HP</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-hp" style="width: 80%;"></div>
+                        </div>
+                        <span class="stat-value">120</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">SPD</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-spd" style="width: 65%;"></div>
+                        </div>
+                        <span class="stat-value">65</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">ATK</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-atk" style="width: 75%;"></div>
+                        </div>
+                        <span class="stat-value">75</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 2: Puteri Kinangan -->
+            <div class="hero-card" data-hero="2">
+                <div class="hero-card-icon hero-icon-2">✨</div>
+                <div class="hero-card-name">Puteri Kinangan</div>
+                <div class="hero-card-title">The Mystic Princess</div>
+                <div class="hero-card-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">HP</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-hp" style="width: 57%;"></div>
+                        </div>
+                        <span class="stat-value">85</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">SPD</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-spd" style="width: 80%;"></div>
+                        </div>
+                        <span class="stat-value">80</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">ATK</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-atk" style="width: 90%;"></div>
+                        </div>
+                        <span class="stat-value">90</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 3: Panglima Awang -->
+            <div class="hero-card" data-hero="3">
+                <div class="hero-card-icon hero-icon-3">⚓</div>
+                <div class="hero-card-name">Panglima Awang</div>
+                <div class="hero-card-title">The World Voyager</div>
+                <div class="hero-card-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">HP</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-hp" style="width: 67%;"></div>
+                        </div>
+                        <span class="stat-value">100</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">SPD</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-spd" style="width: 95%;"></div>
+                        </div>
+                        <span class="stat-value">95</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">ATK</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-atk" style="width: 80%;"></div>
+                        </div>
+                        <span class="stat-value">80</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Detail Panel -->
+        <div id="hero-detail">
+            <div id="hero-detail-name">Select a Hero</div>
+            <div id="hero-detail-title"></div>
+            <div id="hero-detail-desc"></div>
+        </div>
+
+        <button id="select-hero-btn" class="btn btn-primary" disabled>SELECT</button>
+    </div>
+
+    <!-- ============================================================
+         SCREEN 5: LEVEL INTRO SCREEN
+         ============================================================ -->
+    <div id="level-intro-screen" class="screen">
+        <div class="level-intro-content">
+            <div id="level-intro-number">LEVEL 1</div>
+            <div id="level-intro-name">Unknown Lands</div>
+            <div id="level-intro-desc">Begin your mission to defend Brunei Darussalam.</div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCREEN 6: HUD (Heads-Up Display)
+         ============================================================ -->
+    <div id="hud">
+        <!-- Top Left: Hero Info & Bars -->
+        <div class="hud-top-left">
+            <div id="hud-hero-name">HERO</div>
+            <div id="health-bar-container">
+                <div id="health-fill"></div>
+                <div id="health-text">150 / 150</div>
+            </div>
+            <div id="mana-bar-container">
+                <div id="mana-fill"></div>
+                <div id="mana-text">100 / 100</div>
+            </div>
+        </div>
+
+        <!-- Top Right: Score & Combo -->
+        <div class="hud-top-right">
+            <div id="score-display">0</div>
+            <div id="combo-display">COMBO x1</div>
+            <div id="wave-display">Wave 1</div>
+        </div>
+
+        <!-- Top Center: Level Banner -->
+        <div id="level-banner">Level 1</div>
+
+        <!-- Bottom Center: Power Slots -->
+        <div class="power-slots">
+            <div id="power1-slot" class="power-slot ready">
+                <div class="power-icon">🔥</div>
+                <div class="power-key">1</div>
+                <div class="power-cooldown-overlay"></div>
+                <div class="power-name">Power 1</div>
+            </div>
+            <div id="power2-slot" class="power-slot ready">
+                <div class="power-icon">⚡</div>
+                <div class="power-key">2</div>
+                <div class="power-cooldown-overlay"></div>
+                <div class="power-name">Power 2</div>
+            </div>
+        </div>
+
+        <!-- Floating Damage Numbers Container -->
+        <div id="damage-numbers-container"></div>
+
+        <!-- Boss Health Bar -->
+        <div id="boss-health-container">
+            <div id="boss-name">BOSS</div>
+            <div class="boss-health-bar">
+                <div id="boss-health-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCREEN 7: LEVEL COMPLETE SCREEN
+         ============================================================ -->
+    <div id="level-complete-screen" class="screen">
+        <div class="result-card">
+            <h2 class="result-title level-complete-title">LEVEL COMPLETE</h2>
+            <div id="level-complete-score" class="result-score">Score: 0</div>
+            <div id="level-complete-fact" class="cultural-fact">
+                Brunei Darussalam, officially the Nation of Brunei, the Abode of Peace, is one of the oldest sultanates in Southeast Asia.
+            </div>
+            <button id="next-level-btn" class="btn btn-primary">NEXT LEVEL</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCREEN 8: GAME OVER SCREEN
+         ============================================================ -->
+    <div id="game-over-screen" class="screen">
+        <div class="result-card">
+            <h2 class="result-title game-over-title">FALLEN IN BATTLE</h2>
+            <div id="game-over-score" class="result-score">Score: 0</div>
+            <div class="result-buttons">
+                <button id="retry-btn" class="btn btn-primary">TRY AGAIN</button>
+                <button id="change-hero-btn" class="btn btn-secondary">CHANGE HERO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCREEN 9: VICTORY SCREEN
+         ============================================================ -->
+    <div id="victory-screen" class="screen">
+        <div class="result-card victory-card">
+            <h2 class="result-title victory-title">VICTORY</h2>
+            <div class="victory-subtitle">Brunei Darussalam is Safe!</div>
+            <div id="victory-score" class="result-score">Final Score: 0</div>
+            <button id="play-again-btn" class="btn btn-primary">PLAY AGAIN</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         GAME CONTAINER — Three.js Canvas Mount Point
+         ============================================================ -->
+    <div id="game-container"></div>
+
+    <!-- ============================================================
+         GAME SCRIPTS (loaded in order)
+         ============================================================ -->
+    <script src="js/input.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/heroes.js"></script>
+    <script src="js/monsters.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/combat.js"></script>
+    <script src="js/game.js"></script>
+
+</body>
+</html>
